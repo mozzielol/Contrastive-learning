@@ -28,7 +28,7 @@ def get_autoencoder():
 
     # Middle
     # x = MaxPool2D(2)(block2)
-    middle = create_block(x, 128)
+    middle = create_block(x, 32)
 
     # Decoder
     # x = Conv2DTranspose(128, kernel_size=2, strides=2)(middle)
@@ -54,6 +54,6 @@ def get_autoencoder():
 def get_projector(input_dims, dims=500):
     inputs = Input(input_dims)
     x = Flatten()(inputs)
-    x = Dense(dims, activation='relu')(x)
+    x = Dense(2048, activation='relu')(x)
     x = Dense(dims)(x)
     return Model(inputs, x)

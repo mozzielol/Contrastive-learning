@@ -2,6 +2,7 @@ import tensorflow as tf
 import keras
 from keras.activations import softmax
 
+
 LARGE_NUM = 1e9
 
 
@@ -10,6 +11,14 @@ def keras_loss(hidden_norm=True, temperature=1.0,weights=1.0):
     y_pred = add_contrastive_loss(hidden, hidden_norm, temperature, weights)
     return keras.losses.categorical_crossentropy(y_true, y_pred)
   return loss
+
+
+def cos_similarity(hidden):
+    hidden1, hidden2 = tf.split(hidden, 2, 0)
+    x = K.l2_normalize(hidden1, axis=-1)
+    y = K.l2_normalize(hidden2, axis=-1)
+    return -K.mean(x * y, axis=-1, keepdims=True)
+
 
 
 def add_contrastive_loss(hidden,

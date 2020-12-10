@@ -93,5 +93,5 @@ class Dataloader(keras.utils.Sequence):
 
         # [None] is used to silence warning
         # https://stackoverflow.com/questions/59317919/warningtensorflowsample-weight-modes-were-coerced-from-to
-        return X, labels
+        return X, np.ones(X.shape[0]) #labels
 
